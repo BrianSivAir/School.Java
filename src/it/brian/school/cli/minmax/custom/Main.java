@@ -1,7 +1,7 @@
 package it.brian.school.cli.minmax.custom;
 
 import java.util.*;
-import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import it.brian.school.cli.minmax.Calculator;
 import it.brian.school.cli.minmax.Calculator.Operation;
@@ -13,9 +13,12 @@ public class Main {
 
         Calculator calculator = new Calculator();
 
-        Calculator.Operation op = null;
-        List<Integer> numbers = new ArrayList<>();
+        List<Integer> numbers = Arrays.stream(args)
+                .skip(1)
+                .map(Integer::valueOf)
+                .collect(Collectors.toList());
 
+        Calculator.Operation op = null;
         switch (args[0].toLowerCase()) {
             case "min":
                 op = Operation.MIN;
@@ -25,11 +28,6 @@ public class Main {
                 break;
         }
 
-        for (String arg : args) {
-            if (!args[0].equals(arg)) {
-                numbers.add(Integer.valueOf(arg));
-            }
-        }
         if (op == Calculator.Operation.MIN) {
             System.out.print("Minimum number is: ");
         } else if (op == Calculator.Operation.MAX) {
@@ -43,21 +41,24 @@ public class Main {
         if (args.length <= 1) {
             syntaxViolation();
         }
-        for (String arg : args) {
-            if (args[0].equals(arg)) {
-                if (!(args[0].equalsIgnoreCase("min") || args[0].equalsIgnoreCase("max"))) {
-                    syntaxViolation();
-                }
-            } else if (!Pattern.matches("\\d+", arg)) {
+        if (!(args[0].equalsIgnoreCase("min") || args[0].equalsIgnoreCase("max"))) {
+            syntaxViolation();
+        }
+        Arrays.stream(args).skip(1).forEach(s -> {
+            try {
+                Integer.parseInt(s);
+            } catch (NumberFormatException e) {
+                System.out.println("ERROR! Invalid token: " + s);
                 syntaxViolation();
             }
-        }
+        });
 
+        System.out.println("SUCCESS!");
     }
 
     private static void syntaxViolation() {
         System.out.println("Invalid args");
         System.out.println("Syntax: <type:[min/max]> <numbers:int..>");
-        System.exit(-1);
+        System.exit(1);
     }
 }
