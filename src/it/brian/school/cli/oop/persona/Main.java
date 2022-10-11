@@ -1,18 +1,36 @@
 package it.brian.school.cli.oop.persona;
 
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter persona1 name: ");
+        String persona1Nome = scanner.nextLine();
+        System.out.print("Enter persona1 surname: ");
+        String persona1Surname = scanner.nextLine();
+        System.out.print("Enter persona2 name: ");
+        String persona2Name = scanner.nextLine();
+        System.out.print("Enter persona2 surname: ");
+        String persona2Surname = scanner.nextLine();
+        System.out.print("Enter persona2 title: ");
+        String persona2Title = scanner.nextLine();
+        System.out.print("Enter persona2 profession: ");
+        String persona2Profession = scanner.nextLine();
+
         /*
         * Creazione dell'oggetto 'persona1' utilizzando il secondo
         * costruttore
         */
-        Persona persona1 = new Persona("Marco", "Bianchi");
+        Persona persona1 = new Persona(persona1Nome, persona1Surname);
 
         /*
         * Creazione dell'oggetto 'persona2' utilizzando il primo
         * costruttore
         */
-        Persona persona2 = new Persona("Renato", "Caputo", "Sig.", "barbiere");
+        Persona persona2 = new Persona(persona2Name, persona2Surname, persona2Title, persona2Profession);
 
         /*
         * Stampa della stringa restituita dal metodo getInfoPersona
@@ -39,8 +57,12 @@ public class Main {
         * Inserimento di nuovi valori all'interno degli attributi
         * dell'oggetto persona1 utilizzando i metodi setter
         */
-        persona1.setTitle("Ing.");
-        persona1.setProfession("analista programmatore");
+        System.out.print("Enter persona1 title: ");
+        String persona1Title = scanner.nextLine();
+        System.out.print("Enter persona2 profession: ");
+        String persona1Profession = scanner.nextLine();
+        persona1.setTitle(persona1Title);
+        persona1.setProfession(persona1Profession);
 
         /*
         * Stampa della stringa restituita da una nuova invocazione
