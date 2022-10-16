@@ -7,18 +7,23 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
+        /*
+        * Blocco di codice per l'inserimento di dati da tastiera
+        * mantenendo la creazione degli oggetti con i costruttori
+        */
         System.out.print("Enter persona1 name: ");
-        String persona1Nome = scanner.nextLine();
+        String persona1Nome = scanner.next();
         System.out.print("Enter persona1 surname: ");
-        String persona1Surname = scanner.nextLine();
-        System.out.print("Enter persona2 name: ");
-        String persona2Name = scanner.nextLine();
+        String persona1Surname = scanner.next();
+        System.out.print("\nEnter persona2 name: ");
+        String persona2Name = scanner.next();
         System.out.print("Enter persona2 surname: ");
-        String persona2Surname = scanner.nextLine();
+        String persona2Surname = scanner.next();
         System.out.print("Enter persona2 title: ");
-        String persona2Title = scanner.nextLine();
+        String persona2Title = scanner.next();
         System.out.print("Enter persona2 profession: ");
-        String persona2Profession = scanner.nextLine();
+        String persona2Profession = scanner.next();
+        System.out.println();
 
         /*
         * Creazione dell'oggetto 'persona1' utilizzando il secondo
@@ -54,13 +59,18 @@ public class Main {
         System.out.println(persona2.getInfoPersona());
 
         /*
+        * Blocco per inserimento valori
+        */
+        System.out.print("\nEnter persona1 title: ");
+        String persona1Title = scanner.next();
+        System.out.print("Enter persona2 profession: ");
+        String persona1Profession = scanner.next();
+        System.out.println();
+
+        /*
         * Inserimento di nuovi valori all'interno degli attributi
         * dell'oggetto persona1 utilizzando i metodi setter
         */
-        System.out.print("Enter persona1 title: ");
-        String persona1Title = scanner.nextLine();
-        System.out.print("Enter persona2 profession: ");
-        String persona1Profession = scanner.nextLine();
         persona1.setTitle(persona1Title);
         persona1.setProfession(persona1Profession);
 
