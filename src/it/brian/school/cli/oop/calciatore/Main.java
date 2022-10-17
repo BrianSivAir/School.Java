@@ -1,6 +1,5 @@
 package it.brian.school.cli.oop.calciatore;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
