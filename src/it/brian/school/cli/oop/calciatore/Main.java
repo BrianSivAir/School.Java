@@ -12,9 +12,14 @@ public class Main {
         for (int i = 0; i < calciatori.length; i++) {
             System.out.printf("CALCIATORE %d:%n", i + 1);
             calciatori[i] = inputCalciatore();
+            System.out.println();
         }
 
-        Arrays.stream(calciatori).forEach(System.out::println);
+        System.out.println("OUTPUT");
+        for (int i = 0; i < calciatori.length; i++) {
+            System.out.printf("\nCALCIATORE %d:%n", i + 1);
+            System.out.println(calciatori[i].toString());
+        }
     }
 
     private static Calciatore inputCalciatore() {
@@ -25,6 +30,10 @@ public class Main {
         calciatore.setSurname(scanner.next());
         System.out.print("Enter role: ");
         calciatore.setRole(scanner.next());
+        System.out.print("Enter age: ");
+        calciatore.setAge(scanner.nextInt());
+        System.out.print("Enter role: ");
+        calciatore.setSpeed(scanner.nextFloat());
         return calciatore;
     }
 

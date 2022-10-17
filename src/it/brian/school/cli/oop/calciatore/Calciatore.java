@@ -4,6 +4,8 @@ public class Calciatore {
     private String name;
     private String surname;
     private String role;
+    private Integer age;
+    private Float speed;
 
     public String getName() {
         return name;
@@ -29,14 +31,33 @@ public class Calciatore {
         this.role = role;
     }
 
-    public void dribbleAbility(int a, int b) {
-        System.out.println((a * b) / 0.86);
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public Float getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(Float speed) {
+        this.speed = speed;
+    }
+
+    public float dribbleAbility() {
+        return (float) ((age * speed) / 0.86);
     }
 
     @Override
     public String toString() {
         return  "name = '" + name + '\'' +
                 ", surname = '" + surname + '\'' +
-                ", role = '" + role + '\'';
+                ", role = '" + role + '\'' +
+                ", age = " + age +
+                ", speed = " + speed +
+                ", dribble ability = " + dribbleAbility();
     }
 }
