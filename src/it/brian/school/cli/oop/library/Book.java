@@ -12,10 +12,10 @@ public class Book {
     public void init(Scanner scanner) {
         ValidInputObtainer validInputObtainer = new ValidInputObtainer(scanner);
 
-        System.out.print("\nEnter author: ");
-        author = scanner.next();
+        System.out.print("Enter author: ");
+        author = scanner.nextLine();
         System.out.print("Enter title: ");
-        title = scanner.next();
+        title = scanner.nextLine();
 
         numberOfCopies = validInputObtainer.getIntegerInput("Enter number of copies: ");
     }

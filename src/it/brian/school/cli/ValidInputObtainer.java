@@ -13,33 +13,21 @@ public class ValidInputObtainer {
     public Integer getIntegerInput(String userQuery) {
         while (true) {
             System.out.print(userQuery);
-            if (scanner.hasNextInt()) {
-                return scanner.nextInt();
-            }
+            try {
+                return Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException ignored) {}
             System.out.println("Please enter an integer");
-            scanner.next();
         }
     }
 
-    public Integer getFloatInput(String userQuery) {
+    public Float getFloatInput(String userQuery) {
         while (true) {
             System.out.print(userQuery);
-            if (scanner.hasNextInt()) {
-                return scanner.nextInt();
-            }
+            try {
+                return Float.parseFloat(scanner.nextLine());
+            } catch (NumberFormatException ignored) {}
             System.out.println("Please enter a float");
-            scanner.next();
         }
     }
 
-    public Integer getBooleanInput(String userQuery) {
-        while (true) {
-            System.out.print(userQuery);
-            if (scanner.hasNextInt()) {
-                return scanner.nextInt();
-            }
-            System.out.println("Please enter a boolean");
-            scanner.next();
-        }
-    }
 }
