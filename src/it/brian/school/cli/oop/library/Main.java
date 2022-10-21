@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class Main {
     private static final Scanner scanner = new Scanner(System.in);
     private static final ValidInputObtainer validInputObtainer = new ValidInputObtainer(scanner);
-    private static Book[] books = new Book[100];
+    private static Book[] books = new Book[5];
 
     private static int lastObjectIndex = -1;
 
@@ -49,6 +49,8 @@ public class Main {
     }
 
     private static void inputBooks(int quantity) {
+        quantity = Math.max(quantity, 0);
+        quantity = Math.min(quantity, books.length);
         while (quantity > 0) {
             lastObjectIndex++;
             books[lastObjectIndex] = new Book();
@@ -66,7 +68,14 @@ public class Main {
         }
     }
     private static void removeBook() {
-        int index = validInputObtainer.getIntegerInput("Enter index of book to delete: ");
+        int index;
+        while (true) {
+            index = validInputObtainer.getIntegerInput("Enter index of book to delete: ");
+            if (0 <= index && index < books.length) {
+                break;
+            }
+            System.out.printf("Index out of bounds! Must be in range: %d -> %d%n", 0, books.length - 1);
+        }
         books[index] = null;
     }
 
