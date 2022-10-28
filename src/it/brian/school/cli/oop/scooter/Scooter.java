@@ -16,15 +16,21 @@ public class Scooter {
     }
 
     public Scooter() {
+        this.color = null;
+        this.speed = 0;
+        this.type = "undefinded";
+        this.antiTheft = false;
     }
 
-    public float getSpeed() {
-        return speed;
+    public void printSpeed() {
+        System.out.println(speed);
     }
 
     public void accelerate(float x) {
-        if (!antiTheft) {
-            speed += x;
+        if (antiTheft) {
+            System.out.println("Unable to accelerate: anti theft is mounted");
+        } else {
+            speed = Math.abs(speed + x);
         }
     }
 
