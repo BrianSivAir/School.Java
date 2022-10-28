@@ -40,7 +40,8 @@ public class Main {
         System.out.println("""
                 ------------------------------------
                               SCOOTER
-                ------------------------------------""");
+                ------------------------------------"""
+        );
         System.out.println("Color          : " + getColorName(scooter.color));
         System.out.println("Type           : " + scooter.type);
         System.out.print("Speed          : ");
