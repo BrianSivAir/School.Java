@@ -13,9 +13,12 @@ public class RegisteredScooter extends Scooter {
         this.licensePlate = licensePlate;
     }
 
+    public void printMax() {
+        System.out.println(maximumSpeed);
+    }
+
     @Override
     public void accelerate(float x) {
-        float s = x + speed;
-        speed = Math.min(s, maximumSpeed);
+        super.accelerate(x < maximumSpeed ? x : maximumSpeed - speed);
     }
 }
