@@ -12,11 +12,16 @@ public class Main {
         garage.park("IT092U2S");
         System.out.println("Num vehicles:" + garage.getNumVehicles());
 
+        System.out.print("Vehicles: ");
+        garage.printVehicles();
+
         garage.remove("IT092U2S");
         System.out.println("Num vehicles:" + garage.getNumVehicles());
         garage.remove("IT239FG2");
         System.out.println("Num vehicles:" + garage.getNumVehicles());
         garage.remove("IT239FG2");
         System.out.println("Num vehicles:" + garage.getNumVehicles());
+        System.out.print("Vehicles: ");
+        garage.printVehicles();
     }
 }

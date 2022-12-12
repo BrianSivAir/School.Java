@@ -36,4 +36,8 @@ public class Garage {
         return vehicles.size();
     }
 
+    public void printVehicles() {
+        System.out.println(vehicles);
+    }
+
 }
