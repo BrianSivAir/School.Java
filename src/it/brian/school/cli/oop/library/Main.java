@@ -1,6 +1,6 @@
 package it.brian.school.cli.oop.library;
 
-import it.brian.school.cli.ValidInputObtainer;
+import it.brian.school.cli.EasyInputObtainer;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -8,13 +8,13 @@ import java.util.Scanner;
 
 public class Main {
     private static final Scanner scanner = new Scanner(System.in);
-    private static final ValidInputObtainer validInputObtainer = new ValidInputObtainer(scanner);
+    private static final EasyInputObtainer EASY_INPUT_OBTAINER = new EasyInputObtainer(scanner);
     private static Book[] books = new Book[5];
 
     private static int lastObjectIndex = -1;
 
     public static void main(String[] args) {
-        inputBooks(validInputObtainer.getIntegerInput("Enter number of books to start with: "));
+        inputBooks(EASY_INPUT_OBTAINER.getIntegerInput("Enter number of books to start with: "));
 
         int choice;
         do {
@@ -45,7 +45,7 @@ public class Main {
                 |  6 | Exit                 |
                 +----+----------------------+
                 """);
-        return validInputObtainer.getIntegerInput("Option >> ");
+        return EASY_INPUT_OBTAINER.getIntegerInput("Option >> ");
     }
 
     private static void inputBooks(int quantity) {
@@ -70,7 +70,7 @@ public class Main {
     private static void removeBook() {
         int index;
         while (true) {
-            index = validInputObtainer.getIntegerInput("Enter index of book to delete: ");
+            index = EASY_INPUT_OBTAINER.getIntegerInput("Enter index of book to delete: ");
             if (0 <= index && index < books.length) {
                 break;
             }

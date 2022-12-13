@@ -2,11 +2,11 @@ package it.brian.school.cli;
 
 import java.util.Scanner;
 
-public class ValidInputObtainer {
+public class EasyInputObtainer {
 
     private final Scanner scanner;
 
-    public ValidInputObtainer(Scanner scanner) {
+    public EasyInputObtainer(Scanner scanner) {
         this.scanner = scanner;
     }
 

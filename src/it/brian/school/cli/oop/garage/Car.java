@@ -1,6 +1,6 @@
 package it.brian.school.cli.oop.garage;
 
-import it.brian.school.cli.ValidInputObtainer;
+import it.brian.school.cli.EasyInputObtainer;
 
 import java.util.Scanner;
 
@@ -35,9 +35,9 @@ public class Car extends Vehicle {
     }
 
     @Override
-    public void init(Scanner scanner, ValidInputObtainer validInputObtainer) {
-        super.init(scanner, validInputObtainer);
-        doors = validInputObtainer.getIntegerInput("Doors               : ");
+    public void init(Scanner scanner, EasyInputObtainer easyInputObtainer) {
+        super.init(scanner, easyInputObtainer);
+        doors = easyInputObtainer.getIntegerInput("Doors               : ");
         System.out.print("Fuel                : ");
         fuel = scanner.nextLine();
     }

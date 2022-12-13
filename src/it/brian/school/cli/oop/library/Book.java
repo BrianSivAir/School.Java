@@ -1,6 +1,6 @@
 package it.brian.school.cli.oop.library;
 
-import it.brian.school.cli.ValidInputObtainer;
+import it.brian.school.cli.EasyInputObtainer;
 
 import java.util.Scanner;
 
@@ -10,14 +10,14 @@ public class Book {
     private Integer numberOfCopies;
 
     public void init(Scanner scanner) {
-        ValidInputObtainer validInputObtainer = new ValidInputObtainer(scanner);
+        EasyInputObtainer easyInputObtainer = new EasyInputObtainer(scanner);
 
         System.out.print("Enter author: ");
         author = scanner.nextLine();
         System.out.print("Enter title: ");
         title = scanner.nextLine();
 
-        numberOfCopies = validInputObtainer.getIntegerInput("Enter number of copies: ");
+        numberOfCopies = easyInputObtainer.getIntegerInput("Enter number of copies: ");
     }
 
     public void loan(String title) {

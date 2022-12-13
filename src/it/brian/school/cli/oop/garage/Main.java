@@ -1,6 +1,6 @@
 package it.brian.school.cli.oop.garage;
 
-import it.brian.school.cli.ValidInputObtainer;
+import it.brian.school.cli.EasyInputObtainer;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -11,7 +11,7 @@ public class Main {
     private static final int MAXIMUM_VEHICLE_CAPACYTY = 15;
     private static Vehicle[] vehicles = new Vehicle[MAXIMUM_VEHICLE_CAPACYTY];
     private static final Scanner scanner = new Scanner(System.in);
-    private static final ValidInputObtainer validInputObtainer = new ValidInputObtainer(scanner);
+    private static final EasyInputObtainer EASY_INPUT_OBTAINER = new EasyInputObtainer(scanner);
     private static int lastObjectIndex = -1;
     public static final Map<Integer, Class<? extends Vehicle>> choiceClassMap = new HashMap<>();
 
@@ -32,7 +32,7 @@ public class Main {
             if (0 < choice && choice < 4) {
                 lastObjectIndex++;
                 vehicles[lastObjectIndex] = choiceClassMap.get(choice).getDeclaredConstructor().newInstance();
-                vehicles[lastObjectIndex].init(scanner, validInputObtainer);
+                vehicles[lastObjectIndex].init(scanner, EASY_INPUT_OBTAINER);
             }
 
             listVehicles();
@@ -54,7 +54,7 @@ public class Main {
                 |  0 | Exit                 |
                 +----+----------------------+
                 """);
-        return validInputObtainer.getIntegerInput("Choice >> ");
+        return EASY_INPUT_OBTAINER.getIntegerInput("Choice >> ");
     }
 
     private static void listVehicles() {

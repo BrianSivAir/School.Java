@@ -1,12 +1,12 @@
 package it.brian.school.cli.oop.caesar;
 
-import it.brian.school.cli.ValidInputObtainer;
+import it.brian.school.cli.EasyInputObtainer;
 
 import java.util.Scanner;
 
 public class Main {
     private static final Scanner scanner = new Scanner(System.in);
-    private static final ValidInputObtainer validInputObtainer = new ValidInputObtainer(scanner);
+    private static final EasyInputObtainer EASY_INPUT_OBTAINER = new EasyInputObtainer(scanner);
 
     public static void main(String[] args) {
         int choice;
@@ -16,10 +16,10 @@ public class Main {
                 [1] Encoder
                 [2] Decoder
                 [0] Quit""");
-            choice = validInputObtainer.getIntegerInput(">> ");
+            choice = EASY_INPUT_OBTAINER.getIntegerInput(">> ");
             switch (choice) {
                 case 1 -> {
-                    int key = validInputObtainer.getIntegerInput("Enter encryption key: ");
+                    int key = EASY_INPUT_OBTAINER.getIntegerInput("Enter encryption key: ");
                     System.out.print("Enter text to encrypt: ");
                     String text = scanner.nextLine();
 
@@ -28,7 +28,7 @@ public class Main {
                     System.out.println("Encrypted text: "+ encryptedText + "\n");
                 }
                 case 2 -> {
-                    int key = validInputObtainer.getIntegerInput("Enter decryption key: ");
+                    int key = EASY_INPUT_OBTAINER.getIntegerInput("Enter decryption key: ");
                     System.out.print("Enter text to decrypt: ");
                     String text = scanner.nextLine();
 

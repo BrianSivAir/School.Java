@@ -1,6 +1,6 @@
 package it.brian.school.cli.oop.garage;
 
-import it.brian.school.cli.ValidInputObtainer;
+import it.brian.school.cli.EasyInputObtainer;
 
 import java.util.Scanner;
 import java.util.UUID;
@@ -50,11 +50,11 @@ public class Vehicle {
         this.engineCapacity = engineCapacity;
     }
 
-    public void init(Scanner scanner, ValidInputObtainer validInputObtainer) {
+    public void init(Scanner scanner, EasyInputObtainer easyInputObtainer) {
         System.out.print("Brand               : ");
         brand = scanner.nextLine();
-        year = validInputObtainer.getIntegerInput("Year                : ");
-        engineCapacity = validInputObtainer.getIntegerInput("Engine capacity     : ");
+        year = easyInputObtainer.getIntegerInput("Year                : ");
+        engineCapacity = easyInputObtainer.getIntegerInput("Engine capacity     : ");
     }
 
     @Override
