@@ -16,11 +16,28 @@ public class Coda<T> {
     public T soddisfa() {
         T elemento = null;
         if (elementi.size() > 0) {
-            elemento = elementi.get(elementi.size() - 1);
+            elemento = elementi.get(0);
+            elementi.remove(0);
         }
-        elementi.remove(elementi.size() - 1);
-
         return elemento;
+    }
+
+    public boolean remove(int index) {
+        try {
+            elementi.remove(index);
+            return true;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return false;
+        }
+    }
+
+    public boolean edit(int index, T element) {
+        try {
+            elementi.setElementAt(element, index);
+            return true;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return false;
+        }
     }
 
     public boolean vuota() {

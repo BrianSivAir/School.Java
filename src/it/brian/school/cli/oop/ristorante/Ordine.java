@@ -18,7 +18,9 @@ public class Ordine {
     }
 
     public void dump() {
+        System.out.println("-------------------------");
         System.out.println("Tavolo          : " + tavolo);
         System.out.println("Ordine          : " + ordine);
+        System.out.println("-------------------------");
     }
 }
