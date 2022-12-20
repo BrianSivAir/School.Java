@@ -2,6 +2,7 @@ package it.brian.school.cli.oop.ristorante;
 
 import java.util.Vector;
 
+//TODO: Translate
 public class Coda<T> {
     private Vector<T> elementi;
 
