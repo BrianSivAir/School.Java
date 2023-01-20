@@ -29,5 +29,4 @@ public class EasyInputObtainer {
             System.out.println("Please enter a float");
         }
     }
-
 }
