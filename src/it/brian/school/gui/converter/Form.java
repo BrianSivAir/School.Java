@@ -14,8 +14,6 @@ public class Form extends JFrame {
     private JButton btConvert;
     private JButton btReset;
 
-    //Finish exercise
-
     public Form() throws HeadlessException {
         init();
         setup();
@@ -26,7 +24,7 @@ public class Form extends JFrame {
         setTitle("Feet to Meter Converter");
         setContentPane(contentPane);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setBounds(50,50, 290, 140);
+        setBounds(50, 50, 290, 140);
         setResizable(false);
         getRootPane().setDefaultButton(btConvert);
 
@@ -41,6 +39,8 @@ public class Form extends JFrame {
 
         lblFeet.setHorizontalAlignment(JLabel.RIGHT);
         lblMeter.setHorizontalAlignment(JLabel.RIGHT);
+
+        txtMeter.setEditable(false);
 
         btConvert.addActionListener(e -> txtMeter.setText(String.valueOf(Float.parseFloat(txtFeet.getText()) / 3.281F)));
         btReset.addActionListener(e -> {

@@ -6,7 +6,7 @@ public class Garage {
     private Vector<String> vehicles;
 
     public Garage() {
-        vehicles = new Vector(1,1);
+        vehicles = new Vector<>(1,1);
     }
 
     public void park(String plate) {
