@@ -2,20 +2,20 @@ package it.brian.school.gui.backgroundchanger;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Vector;
 
 public class Form extends JFrame {
-    private static final Map<String, Color> COLOR_MAP = new HashMap<>();
+    private static final Map<String, Color> COLOR_MAP = new LinkedHashMap<>();
     JPanel contentPane;
     JPanel centerPanel;
     JPanel northPanel;
+    JLabel lbBackground;
     JComboBox<String> cbColors;
     JButton btApply;
 
     public Form() throws HeadlessException {
+        super("Background changer");
         init();
         setup();
         setVisible(true);
@@ -24,13 +24,22 @@ public class Form extends JFrame {
         setBounds(80, 80, 300, 300);
     }
 
+
     private void setup() {
+        getRootPane().setDefaultButton(btApply);
         setContentPane(contentPane);
         contentPane.add(centerPanel, BorderLayout.CENTER);
         contentPane.add(northPanel, BorderLayout.NORTH);
+        northPanel.add(lbBackground);
         northPanel.add(cbColors);
         northPanel.add(btApply);
-        btApply.addActionListener(e -> centerPanel.setBackground(COLOR_MAP.get(((String) cbColors.getSelectedItem()))));
+        btApply.addActionListener(e -> Form.this.handleBackgroundMismatch());
+
+        handleBackgroundMismatch();
+    }
+
+    private void handleBackgroundMismatch() {
+        centerPanel.setBackground(COLOR_MAP.get(((String) cbColors.getSelectedItem())));
     }
 
     private void init() {
@@ -51,6 +60,8 @@ public class Form extends JFrame {
         contentPane = new JPanel(new BorderLayout());
         centerPanel = new JPanel();
         northPanel = new JPanel();
+
+        lbBackground = new JLabel("Background: ");
         cbColors = new JComboBox<>(COLOR_MAP.keySet().toArray(new String[0]));
         btApply = new JButton("Apply");
     }
