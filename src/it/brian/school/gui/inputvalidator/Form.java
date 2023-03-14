@@ -16,10 +16,11 @@ public class Form extends JFrame {
     private JButton btCancel;
 
     public Form() throws HeadlessException {
+        super("Form");
         init();
         setup();
         pack();
-        setBounds(50, 50, 302, 136);
+        setBounds(100, 100, 302, 136);
     }
 
     private void init() {
@@ -66,9 +67,7 @@ public class Form extends JFrame {
 
         });
 
-        btCancel.addActionListener(e -> {
-            processWindowEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-        });
+        btCancel.addActionListener(e -> processWindowEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING)));
 
         addWindowListener(new WindowClosingHandler(this));
     }
