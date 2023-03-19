@@ -21,7 +21,7 @@ public class Dice {
         return FACES;
     }
 
-    public DiceFace throwDice() {
+    public DiceFace rollDice() {
         int i = random.nextInt(6);
         topFace = faces[i];
         return topFace;

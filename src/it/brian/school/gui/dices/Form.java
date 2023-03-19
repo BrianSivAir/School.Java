@@ -3,13 +3,12 @@ package it.brian.school.gui.dices;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.WindowEvent;
 
 public class Form extends JFrame {
 
     private static final String[] numbersList = {"due", "tre", "quattro", "cinque", "sei", "sette", "otto", "nove", "dieci", "undici", "dodici"};
     private final Match match = new Match();
-    private final Dice diceOne = new Dice();
-    private final Dice diceTwo = new Dice();
 
 
     private JPanel contentPane;
@@ -29,16 +28,17 @@ public class Form extends JFrame {
     private JTextField txTotalPoints;
     private JButton btQuit;
     private JTextArea outputTxArea;
+    private JScrollPane outputTxAreaScrollPane;
 
     private JPanel southPanel;
     private JComboBox<String> cBNumbers;
-    private JButton btThrow;
-    private JTextField txResult;
+    private JButton btRoll;
+    private JTextField txOutcome;
 
     private JPanel eastPanel;
     private JLabel lblStatistics;
-    private JLabel lblThrowsCounter;
-    private JTextField txThrowsCounter;
+    private JLabel lblRollsCounter;
+    private JTextField txRollsCounter;
     private JLabel lblDiceOne;
     private JTextField txDiceOne;
     private JLabel lblDiceTwo;
@@ -82,11 +82,11 @@ public class Form extends JFrame {
 
     private void setup() {
         setVisible(true);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setLocation(60, 60);
         setContentPane(contentPane);
-        getRootPane().setDefaultButton(btThrow);
-        setTitle("-----player1-----");
+        getRootPane().setDefaultButton(btRoll);
+        setTitle("Player: " + match.player.getName());
 
         playersButtonGroup.add(rBCarla);
         playersButtonGroup.add(rBMaria);
@@ -110,6 +110,7 @@ public class Form extends JFrame {
         northPanel.add(northImage);
 
         txTotalPoints.setBackground(Color.YELLOW);
+        txTotalPoints.setEditable(false);
         btQuit.setBackground(Color.RED);
 
         northCenterPanel.add(lblTotalPoints);
@@ -121,19 +122,19 @@ public class Form extends JFrame {
         outputTxArea.setEditable(false);
         outputTxArea.setBackground(Color.YELLOW);
 
-        northPanel.add(outputTxArea);
+        northPanel.add(outputTxAreaScrollPane);
 
 
-        txResult.setEditable(false);
-        txResult.setBackground(Color.GREEN);
+        cBNumbers.setSelectedIndex(match.wager - 2);
+        txOutcome.setEditable(false);
 
         southPanel.add(cBNumbers);
-        southPanel.add(btThrow);
-        southPanel.add(txResult);
+        southPanel.add(btRoll);
+        southPanel.add(txOutcome);
 
         lblStatistics.setForeground(Color.RED);
-        txThrowsCounter.setEditable(false);
-        txThrowsCounter.setBackground(Color.YELLOW);
+        txRollsCounter.setEditable(false);
+        txRollsCounter.setBackground(Color.YELLOW);
         txDiceOne.setEditable(false);
         txDiceOne.setBackground(Color.YELLOW);
         txDiceTwo.setEditable(false);
@@ -154,8 +155,8 @@ public class Form extends JFrame {
 
         eastPanel.add(lblStatistics);
         eastPanel.add(new JLabel(""));
-        eastPanel.add(lblThrowsCounter);
-        eastPanel.add(txThrowsCounter);
+        eastPanel.add(lblRollsCounter);
+        eastPanel.add(txRollsCounter);
         eastPanel.add(lblDiceOne);
         eastPanel.add(txDiceOne);
         eastPanel.add(lblDiceTwo);
@@ -189,9 +190,9 @@ public class Form extends JFrame {
         westPanel.add(rBOneHundred);
         westPanel.add(checkForty);
 
-        centerLeftImage.setIcon(diceOne.getTopFace().getImage());
+        centerLeftImage.setIcon(match.diceOne.getTopFace().getImage());
         centerLeftImage.setHorizontalAlignment(JLabel.CENTER);
-        centerRightImage.setIcon(diceTwo.getTopFace().getImage());
+        centerRightImage.setIcon(match.diceOne.getTopFace().getImage());
         centerRightImage.setHorizontalAlignment(JLabel.CENTER);
 
         centerPanel.setBackground(Color.WHITE);
@@ -206,21 +207,49 @@ public class Form extends JFrame {
         contentPane.add(westPanel, BorderLayout.WEST);
         contentPane.add(centerPanel, BorderLayout.CENTER);
 
+        match.setMatchLogger(text -> outputTxArea.append(text + "\n"));
+
+        match.setRollListener((match, outcome) -> {
+            centerLeftImage.setIcon(match.diceOne.getTopFace().getImage());
+            centerRightImage.setIcon(match.diceTwo.getTopFace().getImage());
+            txRollsCounter.setText(String.valueOf(match.STATISTICS.getCountOfRolls()));
+            txDiceOne.setText(String.valueOf(match.STATISTICS.getCountOfDiceWith(1)));
+            txDiceTwo.setText(String.valueOf(match.STATISTICS.getCountOfDiceWith(2)));
+            txDiceThree.setText(String.valueOf(match.STATISTICS.getCountOfDiceWith(3)));
+            txDiceFour.setText(String.valueOf(match.STATISTICS.getCountOfDiceWith(4)));
+            txDiceFive.setText(String.valueOf(match.STATISTICS.getCountOfDiceWith(5)));
+            txDiceSix.setText(String.valueOf(match.STATISTICS.getCountOfDiceWith(6)));
+            txWon.setText(String.valueOf(match.STATISTICS.getWon()));
+            txLost.setText(String.valueOf(match.STATISTICS.getLost()));
+            if (outcome) {
+                txOutcome.setText("HAI VINTO");
+                txOutcome.setBackground(Color.GREEN);
+            } else {
+                txOutcome.setText("HAI PERSO");
+                txOutcome.setBackground(Color.RED);
+            }
+        });
+
         /*
         * Events
         */
 
-        rBCarla.addActionListener(new PlayersSelectionHandler(northImage, PlayersSelectionHandler.CARLA));
-        rBMaria.addActionListener(new PlayersSelectionHandler(northImage, PlayersSelectionHandler.MARIA));
-        rBPina.addActionListener(new PlayersSelectionHandler(northImage, PlayersSelectionHandler.PINA));
-        rBAndrea.addActionListener(new PlayersSelectionHandler(northImage, PlayersSelectionHandler.ANDREA));
-        rBValerio.addActionListener(new PlayersSelectionHandler(northImage, PlayersSelectionHandler.VALERIO));
-        rBAnna.addActionListener(new PlayersSelectionHandler(northImage, PlayersSelectionHandler.ANNA));
+        rBCarla.addActionListener(new PlayersSelectionHandler(this, northImage, Player.CARLA, match));
+        rBMaria.addActionListener(new PlayersSelectionHandler(this, northImage, Player.MARIA, match));
+        rBPina.addActionListener(new PlayersSelectionHandler(this, northImage, Player.PINA, match));
+        rBAndrea.addActionListener(new PlayersSelectionHandler(this, northImage, Player.ANDREA, match));
+        rBValerio.addActionListener(new PlayersSelectionHandler(this, northImage, Player.VALERIO, match));
+        rBAnna.addActionListener(new PlayersSelectionHandler(this, northImage, Player.ANNA, match));
 
-        btThrow.addActionListener(e -> {
-            centerLeftImage.setIcon(diceOne.throwDice().getImage());
-            centerRightImage.setIcon(diceTwo.throwDice().getImage());
+        cBNumbers.addActionListener(e -> {
+            match.wager = cBNumbers.getSelectedIndex() + 2;
         });
+
+        btRoll.addActionListener(e -> match.rollDices());
+
+        btQuit.addActionListener(e -> processWindowEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING)));
+
+        addWindowListener(new WindowClosingHandler(this));
 
     }
 
@@ -241,17 +270,18 @@ public class Form extends JFrame {
         lblTotalPoints = new JLabel("Tot. punti");
         txTotalPoints = new JTextField();
         btQuit = new JButton("Uscita");
-        outputTxArea = new JTextArea("Resoconto vinte/perse\n\nHAI VINTO Carla");
+        outputTxArea = new JTextArea("Resoconto vinte/perse\n\n");
+        outputTxAreaScrollPane = new JScrollPane(outputTxArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
         southPanel = new JPanel(new GridLayout(1, 3, 8, 0));
         cBNumbers = new JComboBox<>(numbersList);
-        btThrow = new JButton("Lancia");
-        txResult = new JTextField("HAI VINTO");
+        btRoll = new JButton("Lancia");
+        txOutcome = new JTextField();
 
         eastPanel = new JPanel(new GridLayout(10, 2));
         lblStatistics = new JLabel("STATISTICHE");
-        lblThrowsCounter = new JLabel("num. lanci");
-        txThrowsCounter = new JTextField("0");
+        lblRollsCounter = new JLabel("num. lanci");
+        txRollsCounter = new JTextField("0");
         lblDiceOne = new JLabel("dado uno");
         txDiceOne = new JTextField("0");
         lblDiceTwo = new JLabel("dado due");
