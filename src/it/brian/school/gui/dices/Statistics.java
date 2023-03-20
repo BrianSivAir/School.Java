@@ -4,10 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Statistics {
-    public int rollsCounter = 0;
-    public Map<Integer, Integer> dotsCounterMap = new HashMap<>();
-    public int won = 0;
-    public int lost = 0;
+    private int rollsCounter = 0;
+    private Map<Integer, Integer> dotsCounterMap = new HashMap<>();
+    private int won = 0;
+    private int lost = 0;
 
 
     public void incrCountOfRolls() {

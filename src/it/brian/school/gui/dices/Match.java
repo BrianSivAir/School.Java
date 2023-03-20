@@ -2,12 +2,15 @@ package it.brian.school.gui.dices;
 
 public class Match {
     protected Player player;
-    protected MatchLogger matchLogger;
+    private MatchLogger matchLogger;
+    private RollListener rollListener;
     protected final Statistics STATISTICS = new Statistics();
     protected Dice diceOne = new Dice();
     protected Dice diceTwo = new Dice();
-    protected int wager = 2;
-    protected RollListener rollListener;
+    protected int betOutcome = 2;
+    protected Money wager = new Money();
+    protected float totalPoints = 0;
+
 
     @FunctionalInterface
     public interface RollListener {
@@ -46,13 +49,14 @@ public class Match {
 
         boolean outcome;
 
-        if (sum == wager) {
-            matchLogger.log(player.getName() + " ha vinto");
-            STATISTICS.won++;
+        if (sum == betOutcome) {
+            matchLogger.log(player.getName() + " ha vinto " + wager);
+            STATISTICS.incrCountOfWon();
             outcome = true;
+            totalPoints += wager.getValue();
         } else {
             matchLogger.log(player.getName() + " ha perso");
-            STATISTICS.lost++;
+            STATISTICS.incrCountOfLost();
             outcome = false;
         }
 

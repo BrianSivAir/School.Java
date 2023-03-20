@@ -125,7 +125,7 @@ public class Form extends JFrame {
         northPanel.add(outputTxAreaScrollPane);
 
 
-        cBNumbers.setSelectedIndex(match.wager - 2);
+        cBNumbers.setSelectedIndex(match.betOutcome - 2);
         txOutcome.setEditable(false);
 
         southPanel.add(cBNumbers);
@@ -221,6 +221,9 @@ public class Form extends JFrame {
             txDiceSix.setText(String.valueOf(match.STATISTICS.getCountOfDiceWith(6)));
             txWon.setText(String.valueOf(match.STATISTICS.getWon()));
             txLost.setText(String.valueOf(match.STATISTICS.getLost()));
+
+            txTotalPoints.setText(String.valueOf(match.totalPoints));
+
             if (outcome) {
                 txOutcome.setText("HAI VINTO");
                 txOutcome.setBackground(Color.GREEN);
@@ -241,11 +244,20 @@ public class Form extends JFrame {
         rBValerio.addActionListener(new PlayersSelectionHandler(this, northImage, Player.VALERIO, match));
         rBAnna.addActionListener(new PlayersSelectionHandler(this, northImage, Player.ANNA, match));
 
-        cBNumbers.addActionListener(e -> {
-            match.wager = cBNumbers.getSelectedIndex() + 2;
+        btRoll.addActionListener(e -> {
+            match.rollDices();
+            match.betOutcome = cBNumbers.getSelectedIndex() + 2;
+            match.wager = new Money(
+                    rBTen.isSelected(),
+                    rBTwenty.isSelected(),
+                    rBFifty.isSelected(),
+                    rBOneHundred.isSelected(),
+                    checkTen.isSelected(),
+                    checkTwenty.isSelected(),
+                    checkThirty.isSelected(),
+                    checkForty.isSelected()
+            );
         });
-
-        btRoll.addActionListener(e -> match.rollDices());
 
         btQuit.addActionListener(e -> processWindowEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING)));
 
@@ -268,9 +280,9 @@ public class Form extends JFrame {
         northImage = new JLabel();
         northCenterPanel = new JPanel(new GridLayout(3, 1));
         lblTotalPoints = new JLabel("Tot. punti");
-        txTotalPoints = new JTextField();
+        txTotalPoints = new JTextField("0.0");
         btQuit = new JButton("Uscita");
-        outputTxArea = new JTextArea("Resoconto vinte/perse\n\n");
+        outputTxArea = new JTextArea("Resoconto vinte/perse\n\n", 10, 15);
         outputTxAreaScrollPane = new JScrollPane(outputTxArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
         southPanel = new JPanel(new GridLayout(1, 3, 8, 0));
