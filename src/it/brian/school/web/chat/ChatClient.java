@@ -22,7 +22,6 @@ public class ChatClient {
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter writer = new PrintWriter(socket.getOutputStream());
 
-            System.out.println(reader.readLine());
             writer.println(clientMessage);
             writer.flush();
 

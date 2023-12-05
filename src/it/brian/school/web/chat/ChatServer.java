@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Date;
 import java.util.Scanner;
 
 public class ChatServer {
@@ -21,10 +20,10 @@ public class ChatServer {
                 Socket socket = listenerSocket.accept();
                 System.out.println("Connection accepted with " + socket.getInetAddress().getHostAddress());
 
+
+
                 BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 PrintWriter writer = new PrintWriter(socket.getOutputStream());
-                writer.println("Server DateTime = " + new Date());
-                writer.flush();
 
                 String clientMessage = reader.readLine();
                 if ("fine".equalsIgnoreCase(clientMessage)) {
